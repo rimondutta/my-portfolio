@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 import "../styles/BlogPage.css";
 
 // ── All blog posts data ────────────────────────────────────────────────────
+// eslint-disable-next-line react-refresh/only-export-components
 export const blogPosts = [
     {
         id: 1,
@@ -414,6 +415,7 @@ const BlogPage = () => {
                 .forEach((el) => (el.style.opacity = "1"));
         }, 400);
         return () => clearTimeout(timer);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const featured = blogPosts.filter((p) => p.featured);

@@ -92,7 +92,7 @@ const BlogPostPage = () => {
                                         table: ({ ...props }) => (
                                             <div className="table-responsive"><table {...props} /></div>
                                         ),
-                                        code({ inline, className, children, ...props }: any) {
+                                        code({ inline, className, children, ...props }: React.ComponentPropsWithoutRef<"code"> & { inline?: boolean }) {
                                             const match = /language-(\w+)/.exec(className || '');
                                             const codeString = String(children).replace(/\n$/, '');
                                             return !inline ? (

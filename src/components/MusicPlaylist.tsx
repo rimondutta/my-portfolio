@@ -70,6 +70,7 @@ const MusicPlaylist = () => {
       audio.removeEventListener("ended", onEnded);
       audio.pause();
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentTrack]);
 
   const togglePlay = (index: number) => {

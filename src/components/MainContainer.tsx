@@ -32,6 +32,7 @@ const MainContainer = ({ children }: PropsWithChildren) => {
       }, 100);
       return () => clearTimeout(t);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {

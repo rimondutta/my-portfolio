@@ -31,6 +31,7 @@ const Loading = ({ percent }: { percent: number }) => {
         }, 900);
       }
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoaded]);
 
   function handleMouseMove(e: React.MouseEvent<HTMLElement>) {
@@ -92,12 +93,13 @@ const Loading = ({ percent }: { percent: number }) => {
 
 export default Loading;
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const setProgress = (setLoading: (value: number) => void) => {
   let percent: number = 0;
 
   let interval = setInterval(() => {
     if (percent <= 50) {
-      let rand = Math.round(Math.random() * 5);
+      const rand = Math.round(Math.random() * 5);
       percent = percent + rand;
       setLoading(percent);
     } else {

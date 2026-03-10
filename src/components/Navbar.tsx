@@ -7,6 +7,7 @@ import { useNavigate, useLocation, Link } from "react-router-dom";
 import "./styles/Navbar.css";
 
 gsap.registerPlugin(ScrollSmoother, ScrollTrigger);
+// eslint-disable-next-line react-refresh/only-export-components
 export let smoother: ScrollSmoother;
 
 const Navbar = () => {
@@ -38,6 +39,7 @@ const Navbar = () => {
       ScrollSmoother.refresh(true);
     });
     // intentionally no return cleanup - smoother is long-lived
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, target: string) => {
