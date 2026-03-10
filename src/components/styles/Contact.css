@@ -1,0 +1,158 @@
+.contact-section {
+  margin: auto;
+  padding: 100px 0;
+  position: relative;
+  z-index: 2;
+  background-color: var(--backgroundColor);
+}
+
+.contact-container {
+  width: var(--cWidth);
+  max-width: var(--cMaxWidth);
+  margin: auto;
+}
+
+.contact-section h3 {
+  font-size: clamp(40px, 8vw, 80px);
+  font-weight: 400;
+  text-transform: uppercase;
+  margin-bottom: 80px;
+  color: #fff;
+}
+
+.contact-flex {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 60px 40px;
+  align-items: start;
+}
+
+.contact-box {
+  display: flex;
+  flex-direction: column;
+}
+
+.contact-box h4 {
+  font-size: 13px;
+  font-weight: 600;
+  margin: 0;
+  margin-bottom: 25px;
+  opacity: 0.3;
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+}
+
+.contact-flex p {
+  margin: 0;
+  margin-bottom: 35px;
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+a.contact-social {
+  font-size: 18px;
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  color: rgba(255, 255, 255, 0.7);
+}
+
+a.contact-social:hover {
+  color: var(--accentColor);
+  border-color: var(--accentColor);
+  padding-left: 10px;
+}
+
+.contact-flex p {
+  margin: 0;
+  margin-bottom: 35px;
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* Specific adjustment for music player box to ensure it doesn't overflow */
+.contact-box:has(.music-playlist-box) {
+  min-width: 300px;
+}
+
+.footer-bar {
+  margin-top: 100px;
+  padding-top: 40px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.footer-credit {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  text-align: center;
+}
+
+.footer-credit h2 {
+  font-weight: 400;
+  font-size: 18px;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.6);
+  letter-spacing: 0.5px;
+}
+
+.footer-credit h2 span {
+  color: var(--accentColor);
+  font-weight: 600;
+}
+
+.footer-credit h5 {
+  font-size: 14px;
+  font-weight: 400;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  opacity: 0.3;
+}
+
+@media only screen and (max-width: 1400px) {
+  .contact-flex {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 70px 40px;
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  .footer-credit {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .footer-bar {
+    margin-top: 60px;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .contact-section {
+    padding: 80px 0;
+  }
+
+  .contact-flex {
+    grid-template-columns: 1fr;
+    gap: 60px;
+  }
+
+  .contact-box h2 {
+    font-size: 20px;
+  }
+
+  .footer-credit h2 {
+    font-size: 15px;
+  }
+}
