@@ -70,6 +70,16 @@
   transition: 0.5s;
   transform-origin: left bottom;
   transform: translateX(100%) rotateZ(-90deg);
+  transform-origin: left bottom;
+}
+
+@media screen and (max-width: 768px) {
+  .resume-button {
+    bottom: 110px;
+    letter-spacing: 2px;
+    font-size: 13px;
+    opacity: 0.8;
+  }
 }
 
 .resume-button:hover {
@@ -118,12 +128,13 @@ div.resume-button span {
 @media only screen and (min-width: 768px) {
   .resume-button {
     transform: none;
-    font-size: 20px;
+    font-size: 16px;
     line-height: 20px;
+    bottom: 30px;
   }
 
   div.resume-button span {
-    font-size: 23px;
+    font-size: 20px;
     margin-top: -1.5px;
   }
 }

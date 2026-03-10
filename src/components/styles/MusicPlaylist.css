@@ -12,7 +12,8 @@
     overflow: hidden;
     transition: all 0.4s ease;
     width: 100%;
-    max-width: 300px;
+    max-width: 100%;
+    min-width: 260px;
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
 }
 
@@ -77,7 +78,7 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-width: 150px;
+    max-width: 200px;
 }
 
 .active-artist {
@@ -201,9 +202,46 @@
     }
 }
 
-@media screen and (max-width: 350px) {
+@media screen and (max-width: 480px) {
     .music-playlist-box {
-        width: 280px;
         padding: 12px;
+        gap: 10px;
+        min-width: 100%;
+    }
+
+    .large-album-art {
+        width: 45px;
+        height: 45px;
+    }
+
+    .active-title {
+        font-size: 11px;
+    }
+
+    .active-artist {
+        font-size: 9px;
+    }
+
+    .player-main-section {
+        padding-bottom: 10px;
+        gap: 10px;
+    }
+
+    .music-item {
+        padding: 4px 6px;
+        border-radius: 8px;
+    }
+
+    .item-title {
+        font-size: 10px;
+    }
+
+    .item-artist {
+        font-size: 8px;
+    }
+
+    .play-pause-btn svg {
+        width: 24px;
+        height: 24px;
     }
 }

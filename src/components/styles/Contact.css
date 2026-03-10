@@ -73,9 +73,9 @@ a.contact-social:hover {
   color: rgba(255, 255, 255, 0.9);
 }
 
-/* Specific adjustment for music player box to ensure it doesn't overflow */
 .contact-box:has(.music-playlist-box) {
-  min-width: 300px;
+  width: 100%;
+  max-width: 340px;
 }
 
 .footer-bar {
@@ -145,7 +145,11 @@ a.contact-social:hover {
 
   .contact-flex {
     grid-template-columns: 1fr;
-    gap: 60px;
+    gap: 40px;
+  }
+
+  .contact-box:has(.music-playlist-box) {
+    max-width: 100%;
   }
 
   .contact-box h2 {
