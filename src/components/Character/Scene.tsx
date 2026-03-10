@@ -56,6 +56,14 @@ const Scene = () => {
 
       const onResize = () => handleResize(renderer, camera, canvasDiv, character!);
 
+      // Proactively setup UI timelines for mobile so they don't wait for heavy model loading
+      if (window.innerWidth <= 1024) {
+        import("../utils/GsapScroll").then((module) => {
+          module.setCharTimeline(null, camera);
+          module.setAllTimeline();
+        });
+      }
+
       loadCharacter()
         .then((gltf) => {
           if (gltf) {
@@ -79,7 +87,13 @@ const Scene = () => {
         })
         .catch((err) => {
           console.error("Load failed, stopping progress bar:", err);
-          progress.loaded();
+          progress.loaded().then(() => {
+            // Setup fallback for UI even if 3D fails
+            import("../utils/GsapScroll").then((module) => {
+              module.setCharTimeline(null, camera);
+              module.setAllTimeline();
+            });
+          });
         });
 
       let mouse = { x: 0, y: 0 },
