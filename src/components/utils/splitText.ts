@@ -76,5 +76,5 @@ export default function setSplitText() {
     );
   });
 
-  ScrollTrigger.addEventListener("refresh", () => setSplitText());
+  // Recursive listener removed to prevent potential infinite loops or multiple registrations
 }

@@ -30,10 +30,8 @@ const setLighting = (scene: THREE.Scene) => {
       scene.environmentIntensity = 0;
       scene.environmentRotation.set(5.76, 85.85, 1);
     },
-    // লোডিং প্রগ্রেস দেখার জন্য
-    (xhr) => {
-      console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
-    },
+    // লোডিং প্রগ্রেস দেখার প্রয়োজন নেই কারণ ছোট ফাইল
+    undefined,
     // এরর হ্যান্ডলিং
     (err) => {
       console.error("HDR লোড হতে ব্যর্থ হয়েছে! দয়া করে পাথ চেক করুন।", err);

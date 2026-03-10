@@ -54,6 +54,8 @@ const Scene = () => {
       const progress = setProgress((value) => setLoading(value));
       const { loadCharacter } = setCharacter(renderer, scene, camera);
 
+      const onResize = () => handleResize(renderer, camera, canvasDiv, character!);
+
       loadCharacter()
         .then((gltf) => {
           if (gltf) {
@@ -72,9 +74,7 @@ const Scene = () => {
                 animations.startIntro();
               }, 2500);
             });
-            window.addEventListener("resize", () =>
-              handleResize(renderer, camera, canvasDiv, character)
-            );
+            window.addEventListener("resize", onResize);
           }
         })
         .catch((err) => {
@@ -105,9 +105,7 @@ const Scene = () => {
         });
       };
 
-      document.addEventListener("mousemove", (event) => {
-        onMouseMove(event);
-      });
+      document.addEventListener("mousemove", onMouseMove);
       const landingDiv = document.getElementById("landingDiv");
       if (landingDiv) {
         landingDiv.addEventListener("touchstart", onTouchStart);
@@ -136,13 +134,11 @@ const Scene = () => {
       animate();
       return () => {
         cancelAnimationFrame(frameId);
-        clearTimeout(debounce);
+        if (debounce) clearTimeout(debounce);
         scene.clear();
         renderer.dispose();
         renderer.forceContextLoss();
-        window.removeEventListener("resize", () =>
-          handleResize(renderer, camera, canvasDiv, character!)
-        );
+        window.removeEventListener("resize", onResize);
         if (currentCanvas) {
           currentCanvas.removeChild(renderer.domElement);
         }
