@@ -133,28 +133,31 @@ export function setupSectionTimelines() {
   if (window.innerWidth > 1024) {
     const tlReveal = gsap.timeline({
       scrollTrigger: {
-        trigger: ".about-section",
-        start: "center 55%",
-        end: "bottom top",
+        trigger: ".whatIDO",
+        start: "top 80%",
+        end: "top 20%",
         scrub: true,
         invalidateOnRefresh: true,
       },
     });
     tlReveal.fromTo(
       ".what-box-in",
-      { display: "none" },
-      { display: "flex", duration: 0.1, delay: 6 },
+      { opacity: 0, x: 50 },
+      { opacity: 1, x: 0, duration: 1, ease: "power2.out" },
       0
     );
   } else {
     const tM2 = gsap.timeline({
       scrollTrigger: {
-        trigger: ".what-box-in",
-        start: "top 70%",
-        end: "bottom top",
+        trigger: ".whatIDO",
+        start: "top 75%",
       },
     });
-    tM2.to(".what-box-in", { display: "flex", duration: 0.1, delay: 0 }, 0);
+    tM2.fromTo(".what-box-in", 
+      { opacity: 0, y: 30 },
+      { opacity: 1, y: 0, duration: 0.8, ease: "power2.out", delay: 0.2 }, 
+      0
+    );
   }
 }
 

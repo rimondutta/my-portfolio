@@ -94,6 +94,11 @@ const Navbar = () => {
             </Link>
           </li>
           <li>
+            <Link to="/gallery">
+              <HoverLinks text="GALLERY" />
+            </Link>
+          </li>
+          <li>
             <a
               href="/#contact"
               data-href="#contact"

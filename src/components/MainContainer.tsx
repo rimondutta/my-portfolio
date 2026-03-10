@@ -24,16 +24,19 @@ const MainContainer = ({ children }: PropsWithChildren) => {
   // (user navigated back from /blog), re-run the hero text animations.
   useEffect(() => {
     if (!isLoading) {
-      // Give DOM a tick to finish mounting
       const t = setTimeout(() => {
         import("./utils/initialFX").then(({ resetHomeFX }) => {
           resetHomeFX();
         });
       }, 100);
-      return () => clearTimeout(t);
+      return () => {
+        clearTimeout(t);
+        import("./utils/initialFX").then(({ killHomeFX }) => {
+          killHomeFX();
+        });
+      };
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [isLoading]);
 
   useEffect(() => {
     const resizeHandler = () => {

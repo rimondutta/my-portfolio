@@ -35,9 +35,10 @@
 .what-box-in {
   flex-direction: column;
   height: 500px;
-  margin-left: 200px;
   position: relative;
-  display: none;
+  display: flex;
+  width: 100%;
+  max-width: 450px;
 }
 .what-content {
   width: 450px;
@@ -277,7 +278,7 @@
 }
 @media only screen and (max-width: 1400px) {
   .what-box-in {
-    margin-left: 50px;
+    margin-left: 0;
   }
   .what-content {
     width: 380px;
@@ -291,7 +292,9 @@
   }
   .what-box-in {
     height: 500px;
-    margin-left: -50px;
+    margin-left: 0;
+    width: 100%;
+    display: flex;
   }
   .what-content {
     padding: 50px;
@@ -376,13 +379,18 @@
 }
 @media only screen and (max-width: 550px) {
   .whatIDO {
-    place-items: inherit;
-    align-items: start;
-    justify-content: left;
+    place-items: center;
+    align-items: center;
+    justify-content: center;
   }
   .what-box {
-    max-width: calc(100% - 25px);
+    max-width: 100%;
     margin: 0;
+    width: 100%;
+  }
+  .what-content {
+      width: 100%;
+      padding: 20px;
   }
 }
 @media only screen and (min-width: 1950px) {

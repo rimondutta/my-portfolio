@@ -6,6 +6,7 @@ const CharacterModel = lazy(() => import("./components/Character"));
 const MainContainer = lazy(() => import("./components/MainContainer"));
 const BlogPage = lazy(() => import("./pages/BlogPage"));
 const BlogPostPage = lazy(() => import("./pages/BlogPostPage"));
+const GalleryPage = lazy(() => import("./pages/GalleryPage"));
 import { LoadingProvider } from "./context/LoadingProvider";
 
 const Home = () => (
@@ -27,6 +28,7 @@ const App = () => {
             <Route path="/" element={<Home />} />
             <Route path="/blog" element={<BlogPage />} />
             <Route path="/blog/:slug" element={<BlogPostPage />} />
+            <Route path="/gallery" element={<GalleryPage />} />
           </Routes>
         </Suspense>
       </LoadingProvider>

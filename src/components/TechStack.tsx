@@ -127,28 +127,46 @@ function Pointer({ vec = new THREE.Vector3(), isActive }: PointerProps) {
 const TechStack = () => {
   const [isActive, setIsActive] = useState(false);
 
+  const scrollIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
   useEffect(() => {
     const handleScroll = () => {
+      const workSection = document.getElementById("work");
+      if (!workSection) return;
+
       const scrollY = window.scrollY || document.documentElement.scrollTop;
-      const threshold = document
-        .getElementById("work")!
-        .getBoundingClientRect().top;
+      const threshold = workSection.getBoundingClientRect().top;
       setIsActive(scrollY > threshold);
     };
-    document.querySelectorAll(".header a").forEach((elem) => {
-      const element = elem as HTMLAnchorElement;
-      element.addEventListener("click", () => {
-        const interval = setInterval(() => {
-          handleScroll();
-        }, 10);
-        setTimeout(() => {
-          clearInterval(interval);
-        }, 1000);
-      });
+
+    const handleNavClick = () => {
+      if (scrollIntervalRef.current) clearInterval(scrollIntervalRef.current);
+      
+      scrollIntervalRef.current = setInterval(() => {
+        handleScroll();
+      }, 10);
+
+      setTimeout(() => {
+        if (scrollIntervalRef.current) {
+          clearInterval(scrollIntervalRef.current);
+          scrollIntervalRef.current = null;
+        }
+      }, 1000);
+    };
+
+    const navLinks = document.querySelectorAll(".header a");
+    navLinks.forEach((elem) => {
+      elem.addEventListener("click", handleNavClick);
     });
+
     window.addEventListener("scroll", handleScroll);
+
     return () => {
       window.removeEventListener("scroll", handleScroll);
+      navLinks.forEach((elem) => {
+        elem.removeEventListener("click", handleNavClick);
+      });
+      if (scrollIntervalRef.current) clearInterval(scrollIntervalRef.current);
     };
   }, []);
   const materials = useMemo(() => {
@@ -165,6 +183,12 @@ const TechStack = () => {
         })
     );
   }, []);
+
+  useEffect(() => {
+    return () => {
+      materials.forEach((m) => m.dispose());
+    };
+  }, [materials]);
 
   return (
     <div className="techstack">
