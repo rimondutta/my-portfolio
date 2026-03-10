@@ -107,8 +107,9 @@ const Scene = () => {
         landingDiv.addEventListener("touchstart", onTouchStart);
         landingDiv.addEventListener("touchend", onTouchEnd);
       }
+      let frameId: number;
       const animate = () => {
-        requestAnimationFrame(animate);
+        frameId = requestAnimationFrame(animate);
         if (headBone) {
           handleHeadRotation(
             headBone,
@@ -128,9 +129,11 @@ const Scene = () => {
       };
       animate();
       return () => {
+        cancelAnimationFrame(frameId);
         clearTimeout(debounce);
         scene.clear();
         renderer.dispose();
+        renderer.forceContextLoss();
         window.removeEventListener("resize", () =>
           handleResize(renderer, camera, canvasDiv, character!)
         );

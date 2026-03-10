@@ -22,7 +22,7 @@ const setLighting = (scene: THREE.Scene) => {
 
   // সরাসরি পূর্ণাঙ্গ পাথ ব্যবহার করুন যাতে পাথ ভুল হওয়ার সুযোগ না থাকে
   rgbeLoader.load(
-    "/models/char_enviorment.hdr",
+    "/models/env_map.hdr?v=1",
     (texture) => {
       console.log("HDR লোড হয়েছে!");
       texture.mapping = THREE.EquirectangularReflectionMapping;
