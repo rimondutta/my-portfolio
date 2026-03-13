@@ -11,12 +11,12 @@ import { X } from "lucide-react";
 gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
 
 const logos = [
-  { name: 'Vortex', initial: 'V' },
-  { name: 'Nimbus', initial: 'N' },
-  { name: 'Prysma', initial: 'P' },
-  { name: 'Cirrus', initial: 'C' },
-  { name: 'Kynder', initial: 'K' },
-  { name: 'Halcyn', initial: 'H' },
+  { name: 'JavaScript', initial: 'JS' },
+  { name: 'Python', initial: 'Py' },
+  { name: 'php', initial: 'php' },
+  { name: 'Golang', initial: 'Go' },
+  { name: 'Node JS', initial: 'JS' },
+  { name: 'DevOps', initial: 'OPS' },
 ];
 
 const GalleryPage = () => {
@@ -81,7 +81,7 @@ const GalleryPage = () => {
   useEffect(() => {
     if (!galleryRef.current) return;
     const ctx = gsap.context(() => {
-      gsap.fromTo(".bento-item", 
+      gsap.fromTo(".bento-item",
         { y: 80, opacity: 0 },
         {
           y: 0,
@@ -113,27 +113,27 @@ const GalleryPage = () => {
 
   return (
     <div className="bg-background min-h-screen text-foreground relative selection:bg-accent/30 selection:text-white flex flex-col items-center overflow-x-hidden">
-      
+
       {/* ── Modern Lightbox Overlay ── */}
       {selectedImage && (
-        <div 
+        <div
           className="fixed inset-0 z-[100000] flex items-center justify-center p-4 md:p-12 bg-black/95 backdrop-blur-3xl animate-in fade-in duration-300"
           onClick={() => setSelectedImage(null)}
         >
-          <button 
+          <button
             className="absolute top-6 right-6 text-white/50 hover:text-white transition-colors z-50 bg-white/5 p-3 rounded-full hover:bg-white/10"
             onClick={() => setSelectedImage(null)}
           >
             <X size={24} />
           </button>
-          
-          <div 
+
+          <div
             className="relative w-full max-w-[95vw] md:max-w-[85vw] max-h-[90vh] flex flex-col items-center justify-center animate-in zoom-in-95 duration-500 rounded-2xl overflow-hidden shadow-2xl shadow-black/80"
             onClick={(e) => e.stopPropagation()}
           >
-            <img 
-              src={selectedImage.image} 
-              alt={selectedImage.title} 
+            <img
+              src={selectedImage.image}
+              alt={selectedImage.title}
               className="w-full h-auto max-h-[85vh] object-contain rounded-xl"
             />
           </div>
@@ -141,7 +141,8 @@ const GalleryPage = () => {
       )}
 
       {/* Required CSS for Marquee edges */}
-      <style dangerouslySetInnerHTML={{__html: `
+      <style dangerouslySetInnerHTML={{
+        __html: `
         .fade-edges {
           -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
           mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
@@ -155,27 +156,28 @@ const GalleryPage = () => {
 
       <div id="smooth-wrapper" className="w-full">
         <div id="smooth-content" className="w-full flex flex-col items-center pt-[90px]">
-        
+
           {/* ── Cinematic Hero Section ── */}
           <section className="relative w-full flex flex-col items-center justify-center pt-24 pb-48 px-4 h-auto md:min-h-[70vh]">
             <div className="relative z-10 text-center flex flex-col items-center">
-              <h1 
+              <h1
                 className="text-5xl sm:text-7xl md:text-[120px] lg:text-[180px] xl:text-[230px] font-normal leading-[1.02] tracking-[-0.024em] bg-clip-text text-transparent origin-bottom"
-                style={{ 
+                style={{
                   fontFamily: "'General Sans', sans-serif",
                   backgroundImage: 'linear-gradient(223deg, #E8E8E9 0%, #3A7BBF 104.15%)'
                 }}
               >
-                Grow
+                Explore
               </h1>
               <p className="text-hero-sub text-center text-lg leading-8 max-w-md mt-4 opacity-80">
-                The most powerful AI ever deployed<br />
-                in talent acquisition
+                My Image Gallery
               </p>
               <div className="mt-8">
-                <Button variant="heroSecondary" className="px-[29px] py-[24px]">
-                  Schedule a Consult
-                </Button>
+                <a href="https://rimondutta.pages.dev/contact" target="_blank" rel="noopener noreferrer">
+                  <Button variant="heroSecondary" className="px-[29px] py-[24px]">
+                    Schedule a Meeting
+                  </Button>
+                </a>
               </div>
             </div>
 
@@ -200,8 +202,7 @@ const GalleryPage = () => {
           <section className="w-full relative z-10 pt-10 pb-24 items-center flex flex-col px-4 bg-background">
             <div className="w-full max-w-[1400px] flex flex-col md:flex-row items-center gap-8 md:gap-12 overflow-hidden mx-auto">
               <div className="text-foreground/50 text-sm whitespace-nowrap shrink-0 text-center md:text-left">
-                Relied on by brands <br className="hidden md:block"/>
-                across the globe
+                My TechStack <br className="hidden md:block" />
               </div>
               <div className="flex-1 w-full overflow-hidden relative fade-edges">
                 <div className="flex whitespace-nowrap animate-marquee items-center w-max">
@@ -223,43 +224,43 @@ const GalleryPage = () => {
 
           {/* ── Modern Image Gallery (Bento Grid) ── */}
           <section className="w-full bg-background pb-32 pt-20 relative z-10 flex flex-col items-center">
-              <div className="w-[94%] max-w-[1400px] mx-auto" ref={galleryRef}>
-                  <div className="mb-20 flex flex-col items-center text-center">
-                      <h2 className="text-4xl md:text-5xl lg:text-[70px] font-semibold tracking-tighter text-foreground mb-6 font-general-sans !leading-[1.1]">
-                          Visual <span className="text-accent">Exploration</span>
-                      </h2>
-                      <p className="text-muted-foreground max-w-lg text-base md:text-lg">
-                          A curated collection of design experiments, architectural concepts, and digital art exploring the intersection of light and form.
-                      </p>
-                  </div>
+            <div className="w-[94%] max-w-[1400px] mx-auto" ref={galleryRef}>
+              {/* <div className="mb-20 flex flex-col items-center text-center">
+                <h2 className="text-4xl md:text-5xl lg:text-[70px] font-semibold tracking-tighter text-foreground mb-6 font-general-sans !leading-[1.1]">
+                  Visual <span className="text-accent">Exploration</span>
+                </h2>
+                <p className="text-muted-foreground max-w-lg text-base md:text-lg">
+                  A curated collection of design experiments, architectural concepts, and digital art exploring the intersection of light and form.
+                </p>
+              </div> */}
 
-                  {/* Uniform Grid layout mapping via generic mapping to Tailwind classes */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 auto-rows-[350px] md:auto-rows-[400px] gap-6 w-full">
-                      {/* Display Existing Images */}
-                      {galleryItems.map((item) => {
-                          return (
-                              <div 
-                                  key={item.id} 
-                                  onClick={() => setSelectedImage(item)}
-                                  className="bento-item group relative rounded-[32px] overflow-hidden bg-white/5 border border-white/10 cursor-pointer"
-                              >
-                                  <img 
-                                      src={item.image} 
-                                      alt={item.title} 
-                                      loading="lazy"
-                                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1500ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.1]"
-                                  />
-                                  <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-background/30 to-transparent pointer-events-none mix-blend-multiply opacity-50" />
-                              </div>
-                          );
-                      })}
-                  </div>
+              {/* Uniform Grid layout mapping via generic mapping to Tailwind classes */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 auto-rows-[350px] md:auto-rows-[400px] gap-6 w-full">
+                {/* Display Existing Images */}
+                {galleryItems.map((item) => {
+                  return (
+                    <div
+                      key={item.id}
+                      onClick={() => setSelectedImage(item)}
+                      className="bento-item group relative rounded-[32px] overflow-hidden bg-white/5 border border-white/10 cursor-pointer"
+                    >
+                      <img
+                        src={item.image}
+                        alt={item.title}
+                        loading="lazy"
+                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1500ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.1]"
+                      />
+                      <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-background/30 to-transparent pointer-events-none mix-blend-multiply opacity-50" />
+                    </div>
+                  );
+                })}
               </div>
+            </div>
           </section>
 
           {/* ── Footer ── */}
           <div className="w-full flex justify-center py-12 bg-background border-t border-white/5 relative z-10">
-              <p className="text-muted-foreground text-sm tracking-wide">© 2026 Rimon Dutta — All rights reserved.</p>
+            <p className="text-muted-foreground text-sm tracking-wide">© 2026 Rimon Dutta — All rights reserved.</p>
           </div>
 
         </div>

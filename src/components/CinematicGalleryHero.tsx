@@ -15,26 +15,25 @@ const HeroSection = () => {
       <div className="w-full relative z-50">
         <Navbar />
       </div>
-      
+
       <div className="w-full flex flex-col items-center text-center pt-20 px-4 relative z-10">
-        <h1 
+        <h1
           className="text-5xl sm:text-7xl md:text-[120px] lg:text-[180px] xl:text-[230px] font-normal leading-[1.02] tracking-[-0.024em] bg-clip-text text-transparent"
-          style={{ 
+          style={{
             fontFamily: "'General Sans', sans-serif",
             backgroundImage: 'linear-gradient(223deg, #E8E8E9 0%, #3A7BBF 104.15%)'
           }}
         >
-          Grow
+          Explore
         </h1>
-        
+
         <p className="text-hero-sub text-center text-lg leading-8 max-w-md mt-4 opacity-80">
-          The most powerful AI ever deployed<br />
-          in talent acquisition
+          My Image Gallery
         </p>
 
         <div className="mt-8 mb-[66px]">
           <Button variant="heroSecondary" className="px-[29px] py-[24px]">
-            Schedule a Consult
+            Schedule a Meeting
           </Button>
         </div>
       </div>
@@ -44,12 +43,12 @@ const HeroSection = () => {
 
 // ── Social Proof / Video Section Component ──
 const logos = [
-  { name: 'Vortex', initial: 'V' },
-  { name: 'Nimbus', initial: 'N' },
-  { name: 'Prysma', initial: 'P' },
-  { name: 'Cirrus', initial: 'C' },
-  { name: 'Kynder', initial: 'K' },
-  { name: 'Halcyn', initial: 'H' },
+  { name: 'JavaScript', initial: 'JS' },
+  { name: 'Python', initial: 'Py' },
+  { name: 'php', initial: 'php' },
+  { name: 'Golang', initial: 'Go' },
+  { name: 'Node JS', initial: 'JS' },
+  { name: 'DevOps', initial: 'OPS' },
 ];
 
 const SocialProofSection = () => {
@@ -86,7 +85,7 @@ const SocialProofSection = () => {
     };
 
     video.addEventListener('ended', handleEnded);
-    
+
     // Start loop
     video.play().then(() => {
       fadeLoop();
@@ -123,7 +122,7 @@ const SocialProofSection = () => {
         <div className="w-full max-w-5xl mx-auto flex flex-col md:flex-row items-start md:items-center gap-8 md:gap-12 overflow-hidden">
           {/* Left Side */}
           <div className="text-foreground/50 text-sm whitespace-nowrap shrink-0">
-            Relied on by brands <br className="hidden md:block"/>
+            Relied on by brands <br className="hidden md:block" />
             across the globe
           </div>
 
@@ -153,7 +152,8 @@ const SocialProofSection = () => {
 const CinematicGalleryHero: React.FC = () => {
   return (
     <div className="flex flex-col w-full min-h-screen bg-background text-foreground">
-      <style dangerouslySetInnerHTML={{__html: `
+      <style dangerouslySetInnerHTML={{
+        __html: `
         .fade-edges {
           -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
           mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);

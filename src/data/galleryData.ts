@@ -1,7 +1,7 @@
-import img1 from "../assets/gallery/gallery_image_1.png";
-import img2 from "../assets/gallery/gallery_image_2.png";
-import img3 from "../assets/gallery/gallery_image_3.png";
-import img4 from "../assets/gallery/gallery_image_4.png";
+import img1 from "../assets/gallery/Rimon_Dutta_1.jpg";
+import img2 from "../assets/gallery/Rimon_Dutta_2.jpg";
+import img3 from "../assets/gallery/Rimon_Dutta_3.jpg";
+import img4 from "../assets/gallery/Rimon_Dutta_4.jpg";
 
 export interface GalleryItem {
     id: number;
@@ -13,26 +13,26 @@ export interface GalleryItem {
 export const galleryItems: GalleryItem[] = [
     {
         id: 1,
-        title: "Futuristic Architecture",
-        category: "Architecture",
+        title: "Rimon Dutta",
+        category: "My Image",
         image: img1,
     },
     {
         id: 2,
-        title: "Abstract Iridescence",
-        category: "3D Art",
+        title: "Rimon Dutta",
+        category: "My Image",
         image: img2,
     },
     {
         id: 3,
-        title: "Neon Cityscape",
-        category: "Photography",
+        title: "Rimon Dutta",
+        category: "My Image",
         image: img3,
     },
     {
         id: 4,
-        title: "Carbon Fiber Detail",
-        category: "Automotive",
+        title: "Rimon Dutta",
+        category: "My image",
         image: img4,
     },
 ];

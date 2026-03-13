@@ -441,7 +441,7 @@ const BlogPage = () => {
                             playsInline
                         />
                         <div className="bp-video-overlay" />
-                        
+
                         <div className="bp-hero-inner font-general-sans">
                             <div className="bp-hero-content">
                                 <div className="bp-pill-badge">
@@ -450,11 +450,10 @@ const BlogPage = () => {
                                     <span className="bp-pill-text-solid">March 2026</span>
                                 </div>
                                 <h1 className="bp-hero-title-new">
-                                    Insights at the Speed of Creativity
+                                    Expore All Tech Insights, Tutorials, and Stories on My Blog
                                 </h1>
                                 <p className="bp-hero-sub-new">
-                                    Sharing ideas, tutorials, and stories to inspire developers and creators,
-                                    with a focus on clarity, design, and innovation.
+                                    Dive into a world of tech insights, tutorials, and stories. From AI breakthroughs to coding tips, my blog is your go-to source for all things tech.
                                 </p>
                                 <button className="bp-cta-btn">
                                     <div className="bp-cta-glow" />
