@@ -21,7 +21,7 @@ const Blog = () => {
                 {preview.map((post, index) => (
                     <div className="blog-card" key={index} data-cursor="disable">
                         <div className="blog-image-wrapper">
-                            <img src={post.image} alt={post.title} />
+                            <img src={post.image} alt={`Featured image for ${post.title}`} />
                         </div>
 
                         <div className="blog-meta">

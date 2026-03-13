@@ -1,9 +1,10 @@
 .header {
   display: flex;
+  align-items: center;
   max-width: var(--cMaxWidth);
   width: var(--cWidth);
   justify-content: space-between;
-  padding: 20px 0px;
+  padding: 15px 20px; /* Added horizontal padding */
   margin-bottom: -100px;
   box-sizing: border-box;
   position: fixed;
@@ -11,19 +12,24 @@
   transform: translateX(-50%);
   top: 0;
   z-index: 9999;
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border-bottom: none;
+  border-radius: 0;
 }
-.header ul {
-  font-size: 12px;
+.header .desktop-nav-links {
+  font-size: 11px; /* Slightly smaller base */
   display: flex;
   flex-direction: column;
   margin: 0;
   padding: 0;
   list-style: none;
-  column-gap: 40px;
+  column-gap: 20px;
   row-gap: 8px;
   align-items: end;
 }
-.header ul li {
+.header .desktop-nav-links li {
   margin-left: 0px;
   letter-spacing: 1px;
   color: #ccc;
@@ -36,42 +42,154 @@
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  font-size: 15px;
+  font-size: 14px;
   letter-spacing: 1px;
   font-weight: 500;
+  text-decoration: none;
+  color: #eae5ec;
+  white-space: nowrap;
 }
 .navbar-title {
   font-weight: 700;
   font-size: 14px;
   letter-spacing: 0.2px;
+  white-space: nowrap;
 }
+/* Mobile Menu Button */
+.mobile-menu-btn {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 24px;
+  height: 18px;
+  cursor: pointer;
+  z-index: 10000; /* Above the overlay */
+}
+
+.hamburger-line {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background-color: #eae5ec;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+/* Hide desktop links by default on very small screens, 
+   but our existing setup hid the menu visually or stacked it.
+   Let's ensure .desktop-nav-links is hidden on mobile: */
+@media only screen and (max-width: 767px) {
+  .header .desktop-nav-links {
+    display: none;
+  }
+}
+
+/* Mobile Nav Overlay */
+.mobile-nav-overlay {
+  position: fixed;
+  top: 0;
+  right: -100%; /* Hidden off-screen by default */
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(5, 8, 16, 0.98); /* Deep dark background */
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: right 0.4s ease-in-out;
+}
+
+.mobile-nav-overlay.open {
+  right: 0; /* Slide in */
+}
+
+/* Close Button inside Overlay */
+.close-menu-btn {
+  position: absolute;
+  top: 25px;
+  right: 25px; /* Needs to account for padding */
+  background: none;
+  border: none;
+  color: #eae5ec;
+  font-size: 32px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.close-menu-btn:hover {
+  color: var(--accentColor);
+}
+
+.mobile-nav-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.mobile-nav-links li {
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: 2px;
+}
+
+.mobile-nav-links a {
+  color: #ccc;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.mobile-nav-links a:hover {
+  color: var(--accentColor);
+}
+
 @media only screen and (min-width: 500px) {
   .header {
-    padding: 20px 0px;
+    padding: 15px 25px;
   }
-  .header ul {
+  .header .desktop-nav-links {
     flex-direction: row;
     align-items: center;
-    font-size: 14px;
+    font-size: 12px;
+    column-gap: 15px; /* Tight gap for smaller screens */
   }
-  .header ul li {
+  .header .desktop-nav-links li {
     color: #eae5ec;
   }
   .navbar-title {
-    font-size: 16px;
+    font-size: 15px;
   }
 }
-@media only screen and (min-width: 900px) {
+@media only screen and (min-width: 766px) {
+  .mobile-menu-btn {
+    display: none;
+  }
+  .header .desktop-nav-links {
+    display: flex; /* Show desktop nav */
+  }
+}
+
+@media only screen and (min-width: 1250px) { /* Increased breakpoint */
   .navbar-connect {
     display: block;
   }
-}
-@media only screen and (min-width: 1200px) {
-  .header {
-    padding: 35px 0px;
+  .header .desktop-nav-links {
+    column-gap: 30px;
   }
-  .header ul {
-    column-gap: 80px;
+  .header .desktop-nav-links {
+    font-size: 14px;
+  }
+}
+@media only screen and (min-width: 1600px) {
+  .header {
+    padding: 25px 40px;
+  }
+  .header .desktop-nav-links {
+    column-gap: 60px;
     font-size: 16px;
   }
   .navbar-connect {

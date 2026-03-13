@@ -3,121 +3,150 @@
    ═══════════════════════════════════════════════════════════ */
 
 /* ── Reset / page wrapper ──────────────────────────────── */
-#smooth-wrapper,
-#smooth-content {
+.blog-page-root #smooth-wrapper,
+.blog-page-root #smooth-content {
     width: 100%;
-    background: var(--backgroundColor);
+    background: #000000;
 }
 
 /* ── Hero ──────────────────────────────────────────────── */
 .bp-hero {
     position: relative;
-    min-height: 55vh;
+    /* Vertically centered in remaining viewport, 
+       top padding 280px desktop / bottom 102px */
+    min-height: 100vh;
     display: flex;
-    align-items: flex-end;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     overflow: hidden;
-    background: var(--backgroundColor);
-    padding-bottom: 70px;
+    background: #000000;
+    padding-top: 280px;
+    padding-bottom: 102px;
+}
+
+.bp-video-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+}
+
+.bp-video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1;
 }
 
 .bp-hero-inner {
     position: relative;
     z-index: 2;
-    padding-top: 150px;
-    width: 100%;
-    /* Use the site's standard width token so it matches other sections */
     width: var(--cWidth, 90%);
     max-width: var(--cMaxWidth, 1400px);
     margin: 0 auto;
+    display: flex;
+    justify-content: center;
 }
 
-/* breadcrumb */
-.bp-back-link {
-    display: inline-flex;
+.bp-hero-content {
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 6px;
+    text-align: center;
+    gap: 40px; /* Horizontally centered, stacked vertically with 40px gaps */
+}
+
+/* Badge/Pill */
+.bp-pill-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    padding: 6px 16px;
     font-size: 13px;
-    color: rgba(255, 255, 255, 0.32);
-    text-decoration: none;
-    margin-bottom: 28px;
-    transition: color 0.3s ease;
-    letter-spacing: 0.4px;
+    font-weight: 500;
 }
 
-.bp-back-link:hover {
-    color: var(--accentColor);
-}
-
-/* eyebrow tag */
-.bp-hero-tag {
-    font-size: 11px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 3px;
-    color: var(--accentColor);
-    margin: 0 0 18px;
-}
-
-/* giant title */
-.bp-hero-title {
-    font-size: clamp(52px, 10vw, 120px);
-    font-weight: 600;
-    line-height: 1;
-    color: #fff;
-    margin: 0 0 22px;
-    letter-spacing: -2px;
-}
-
-.bp-hero-title span {
-    color: var(--accentColor);
-}
-
-/* subtitle */
-.bp-hero-sub {
-    font-size: clamp(15px, 1.5vw, 18px);
-    color: rgba(255, 255, 255, 0.36);
-    max-width: 520px;
-    line-height: 1.75;
-    margin: 0;
-}
-
-/* decorative glows */
-.bp-hero-glow {
-    position: absolute;
+.bp-pill-dot {
+    width: 4px;
+    height: 4px;
+    background-color: #ffffff;
     border-radius: 50%;
-    pointer-events: none;
-    z-index: 0;
-    animation: bpGlow 7s ease-in-out infinite alternate;
 }
 
-.bp-hero-glow:first-of-type {
-    top: -120px;
-    right: -60px;
-    width: 600px;
-    height: 600px;
-    background: radial-gradient(circle, rgba(20, 184, 166, .10) 0%, transparent 65%);
+.bp-pill-text-dim {
+    color: rgba(255, 255, 255, 0.6);
 }
 
-.bp-hero-glow--2 {
-    bottom: -160px;
-    left: -80px;
-    width: 380px;
-    height: 380px;
-    background: radial-gradient(circle, rgba(99, 102, 241, .07) 0%, transparent 65%);
-    animation-duration: 9s;
-    animation-direction: alternate-reverse;
+.bp-pill-text-solid {
+    color: #ffffff;
 }
 
-@keyframes bpGlow {
-    from {
-        transform: scale(1);
-        opacity: .5;
-    }
+/* Heading */
+.bp-hero-title-new {
+    max-width: 613px;
+    font-size: 56px;
+    font-weight: 500;
+    line-height: 1.28;
+    margin: 0;
+    
+    /* Apply linear-gradient text effect: ~144.5deg, solid white to zero-opacity black */
+    background: linear-gradient(144.5deg, #ffffff 28%, rgba(0, 0, 0, 0) 115%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent; /* Fallback */
+}
 
-    to {
-        transform: scale(1.2);
-        opacity: 1;
-    }
+/* Subtitle */
+.bp-hero-sub-new {
+    /* Below heading, 24px gap achieved via .bp-hero-content gap or margin */
+    margin: -16px 0 0 0; /* Adjusting the 40px general gap down to 24px */
+    font-size: 15px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.7);
+    max-width: 680px;
+    text-align: center;
+    line-height: 1.6;
+}
+
+/* CTA Button */
+.bp-cta-btn {
+    position: relative;
+    background: #ffffff;
+    color: #000000;
+    font-size: 14px;
+    font-weight: 500;
+    border: none;
+    border-radius: 100px; /* Pill shape */
+    padding: 11px 29px; /* 29px horizontal, 11px vertical */
+    cursor: pointer;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.bp-cta-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(255, 255, 255, 0.2);
+}
+
+.bp-cta-glow {
+    position: absolute;
+    top: 0;
+    left: 20%;
+    width: 60%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
+    opacity: 0.8;
 }
 
 /* ── Content wrapper ──────────────────────────────────── */
@@ -453,37 +482,24 @@
 @media (max-width: 640px) {
     .bp-hero {
         min-height: unset;
-        padding-bottom: 50px;
+        padding-top: 200px;
+        padding-bottom: 102px;
+    }
+
+    .bp-hero-title-new {
+        font-size: 36px;
     }
 
     .bp-hero-inner {
-        padding-top: 120px;
+        padding-top: 0;
+    }
+    
+    .bp-hero-content {
+        gap: 32px;
     }
 
-    .bp-hero-title {
-        letter-spacing: -1px;
-    }
-
-    .bp-grid {
-        grid-template-columns: 1fr;
-        gap: 20px;
-    }
-
-    .bp-section {
-        padding-bottom: 50px;
-    }
-
-    .bp-divider {
-        margin-bottom: 50px;
-    }
-
-    .bp-featured-content {
-        padding: 24px;
-    }
-
-    .bp-read-btn {
-        width: 100%;
-        justify-content: center;
+    .bp-hero-sub-new {
+        margin-top: -8px; /* Maintain the gap relativity on mobile */
     }
 }
 

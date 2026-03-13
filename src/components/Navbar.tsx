@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import HoverLinks from "./HoverLinks";
 import { gsap } from "gsap";
@@ -13,6 +13,7 @@ export let smoother: ScrollSmoother;
 const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     smoother = ScrollSmoother.create({
@@ -56,8 +57,61 @@ const Navbar = () => {
     }
   };
 
+  const closeMobileMenu = () => {
+    setIsMobileMenuOpen(false);
+  };
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
   return (
     <>
+      <div className={`mobile-nav-overlay ${isMobileMenuOpen ? "open" : ""}`}>
+        <button className="close-menu-btn" onClick={closeMobileMenu}>
+            ✕
+        </button>
+        <ul className="mobile-nav-links">
+          <li>
+            <a
+              href="/#about"
+              data-href="#about"
+              onClick={(e) => { handleNavClick(e, "#about"); closeMobileMenu(); }}
+            >
+              ABOUT
+            </a>
+          </li>
+          <li>
+            <a
+              href="/#work"
+              data-href="#work"
+              onClick={(e) => { handleNavClick(e, "#work"); closeMobileMenu(); }}
+            >
+              WORK
+            </a>
+          </li>
+          <li>
+            <Link to="/blog" onClick={closeMobileMenu}>
+              BLOG
+            </Link>
+          </li>
+          <li>
+            <Link to="/gallery" onClick={closeMobileMenu}>
+              GALLERY
+            </Link>
+          </li>
+          <li>
+            <a
+              href="/#contact"
+              data-href="#contact"
+              onClick={(e) => { handleNavClick(e, "#contact"); closeMobileMenu(); }}
+            >
+              CONTACT
+            </a>
+          </li>
+        </ul>
+      </div>
+
       <div className="header">
         <Link to="/" className="navbar-title" data-cursor="disable">
           :) RIMON
@@ -69,7 +123,17 @@ const Navbar = () => {
         >
           connect.rimondutta@gmail.com
         </a>
-        <ul>
+        
+        <div 
+          className={`mobile-menu-btn ${isMobileMenuOpen ? "open" : ""}`} 
+          onClick={toggleMobileMenu}
+        >
+          <span className="hamburger-line"></span>
+          <span className="hamburger-line"></span>
+          <span className="hamburger-line"></span>
+        </div>
+
+        <ul className="desktop-nav-links">
           <li>
             <a
               href="/#about"

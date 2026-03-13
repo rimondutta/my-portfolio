@@ -422,7 +422,7 @@ const BlogPage = () => {
     const rest = blogPosts.filter((p) => !p.featured);
 
     return (
-        <div className="container-main">
+        <div className="container-main blog-page-root">
             <Cursor />
             <Navbar />
             <SocialIcons />
@@ -432,21 +432,36 @@ const BlogPage = () => {
 
                     {/* ── Hero ── */}
                     <div className="bp-hero">
-                        <div className="bp-hero-inner">
-                            <Link to="/" className="bp-back-link" data-cursor="disable">
-                                ← Back to Portfolio
-                            </Link>
-                            <p className="bp-hero-tag">My Thoughts &amp; Insights</p>
-                            <h1 className="bp-hero-title">
-                                The <span>Blog</span>
-                            </h1>
-                            <p className="bp-hero-sub">
-                                Deep dives into design, engineering, and the craft of
-                                building great software.
-                            </p>
+                        <video
+                            className="bp-video-bg"
+                            src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260217_030345_246c0224-10a4-422c-b324-070b7c0eceda.mp4"
+                            autoPlay
+                            loop
+                            muted
+                            playsInline
+                        />
+                        <div className="bp-video-overlay" />
+                        
+                        <div className="bp-hero-inner font-general-sans">
+                            <div className="bp-hero-content">
+                                <div className="bp-pill-badge">
+                                    <div className="bp-pill-dot" />
+                                    <span className="bp-pill-text-dim">New post available from</span>
+                                    <span className="bp-pill-text-solid">March 2026</span>
+                                </div>
+                                <h1 className="bp-hero-title-new">
+                                    Insights at the Speed of Creativity
+                                </h1>
+                                <p className="bp-hero-sub-new">
+                                    Sharing ideas, tutorials, and stories to inspire developers and creators,
+                                    with a focus on clarity, design, and innovation.
+                                </p>
+                                <button className="bp-cta-btn">
+                                    <div className="bp-cta-glow" />
+                                    Subscribe
+                                </button>
+                            </div>
                         </div>
-                        <div className="bp-hero-glow" />
-                        <div className="bp-hero-glow bp-hero-glow--2" />
                     </div>
 
                     {/* ── Featured Post ── */}

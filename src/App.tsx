@@ -8,6 +8,7 @@ const BlogPage = lazy(() => import("./pages/BlogPage"));
 const BlogPostPage = lazy(() => import("./pages/BlogPostPage"));
 const GalleryPage = lazy(() => import("./pages/GalleryPage"));
 import { LoadingProvider } from "./context/LoadingProvider";
+import { Analytics } from "@vercel/analytics/react";
 
 const Home = () => (
   <Suspense>
@@ -22,6 +23,7 @@ const Home = () => (
 const App = () => {
   return (
     <Router>
+      <Analytics />
       <LoadingProvider>
         <Suspense fallback={<div className="loading-screen">Loading...</div>}>
           <Routes>

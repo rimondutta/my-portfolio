@@ -24,7 +24,6 @@ const setLighting = (scene: THREE.Scene) => {
   rgbeLoader.load(
     "/models/env_map.hdr?v=1",
     (texture) => {
-      console.log("HDR লোড হয়েছে!");
       texture.mapping = THREE.EquirectangularReflectionMapping;
       scene.environment = texture;
       scene.environmentIntensity = 0;
