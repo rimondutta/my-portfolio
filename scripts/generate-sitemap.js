@@ -17,17 +17,15 @@ const staticRoutes = [
 async function generateSitemap() {
     console.log('Generating sitemap...');
 
-    // 1. Get dynamic routes from BlogPage.tsx
-    const blogPagePath = path.join(__dirname, '../src/pages/BlogPage.tsx');
-    const blogPageContent = fs.readFileSync(blogPagePath, 'utf-8');
+    // 1. Get dynamic routes from blogPosts.tsx
+    const blogDataPath = path.join(__dirname, '../src/data/blogPosts.tsx');
+    const blogContent = fs.readFileSync(blogDataPath, 'utf-8');
 
-    // Extract slugs using regex from the blogPosts array
-    // The array looks like: { id: 1, slug: "how-llms-work", ... }
-    const slugRegex = /slug:\s*"([^"]+)"/g;
+    const slugRegex = /slug:\s*["']([^"']+)["']/g;
     const dynamicRoutes = [];
     let match;
 
-    while ((match = slugRegex.exec(blogPageContent)) !== null) {
+    while ((match = slugRegex.exec(blogContent)) !== null) {
         dynamicRoutes.push(`/blog/${match[1]}`);
     }
 

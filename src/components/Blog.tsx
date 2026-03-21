@@ -1,7 +1,7 @@
 import { MdArrowForward, MdCalendarToday } from "react-icons/md";
 import { Link } from "react-router-dom";
 import "./styles/Blog.css";
-import { blogPosts } from "../pages/BlogPage";
+import { blogPosts } from "../data/blogPosts";
 
 const Blog = () => {
     const preview = blogPosts.slice(0, 3);

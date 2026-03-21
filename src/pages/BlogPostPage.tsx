@@ -2,13 +2,15 @@ import { useEffect, useState } from "react";
 import { useParams, Link, Navigate } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm"; // নিশ্চিত করুন এটি ইন্সটল করা আছে
+import rehypeRaw from "rehype-raw";
 import { useLoading } from "../context/LoadingProvider";
 import { smoother } from "../components/Navbar";
 import Navbar from "../components/Navbar";
 import SocialIcons from "../components/SocialIcons";
 import Cursor from "../components/Cursor";
+import SEO from "../components/SEO";
 import { MdCalendarToday, MdAccessTime, MdArrowBack, MdArrowForward, MdContentCopy, MdCheck } from "react-icons/md";
-import { blogPosts } from "./BlogPage";
+import { blogPosts } from "../data/blogPosts";
 import "../styles/BlogPostPage.css";
 
 // ── Copy Button Component ──────────────────────────────────────────────
@@ -29,7 +31,7 @@ const CopyButton = ({ text }: { text: string }) => {
 const BlogPostPage = () => {
     const { slug } = useParams<{ slug: string }>();
     const { setIsLoading, setLoading } = useLoading();
-    const post = blogPosts.find((p) => p.slug === slug);
+    const post = blogPosts.find((p: any) => p.slug === slug);
 
     useEffect(() => {
         setLoading(100);
@@ -46,10 +48,18 @@ const BlogPostPage = () => {
 
     if (!post) return <Navigate to="/blog" replace />;
 
-    const otherPosts = blogPosts.filter((p) => p.id !== post.id).slice(0, 2);
+    const otherPosts = blogPosts.filter((p: any) => p.id !== post.id).slice(0, 2);
 
     return (
         <div className="container-main">
+            <SEO 
+                title={`${post.title} | Rimon Dutta`}
+                description={post.metaDescription || post.excerpt}
+                image={post.image}
+                url={`/blog/${post.slug}`}
+                keywords={post.tags}
+                type="article"
+            />
             <Cursor />
             <Navbar />
             <SocialIcons />
@@ -75,7 +85,7 @@ const BlogPostPage = () => {
                     <article className="bpp-article">
                         <div className="bpp-article-inner">
                             <div className="bpp-tags">
-                                {post.tags?.map((tag) => (
+                                {post.tags?.map((tag: any) => (
                                     <span key={tag} className="bpp-tag">{tag}</span>
                                 ))}
                             </div>
@@ -83,9 +93,14 @@ const BlogPostPage = () => {
                             <div className="bpp-content">
                                 <ReactMarkdown
                                     remarkPlugins={[remarkGfm]}
+                                    rehypePlugins={[rehypeRaw]}
                                     components={{
+                                        h1: ({ ...props }) => <h1 className="bpp-h1" {...props} />,
                                         h2: ({ ...props }) => <h2 className="bpp-h2" {...props} />,
                                         h3: ({ ...props }) => <h3 className="bpp-h3" {...props} />,
+                                        h4: ({ ...props }) => <h4 className="bpp-h4" {...props} />,
+                                        h5: ({ ...props }) => <h5 className="bpp-h5" {...props} />,
+                                        h6: ({ ...props }) => <h6 className="bpp-h6" {...props} />,
                                         p: ({ ...props }) => <p className="bpp-p" {...props} />,
                                         ul: ({ ...props }) => <ul className="bpp-list" {...props} />,
                                         ol: ({ ...props }) => <ol className="bpp-list bpp-list--ordered" {...props} />,
@@ -119,7 +134,7 @@ const BlogPostPage = () => {
                                 <div className="bpp-more">
                                     <p className="bpp-more-label">Continue Reading</p>
                                     <div className="bpp-more-grid">
-                                        {otherPosts.map((p) => (
+                                        {otherPosts.map((p: any) => (
                                             <Link to={`/blog/${p.slug}`} key={p.id} className="bpp-more-card" data-cursor="disable">
                                                 <div className="bpp-more-image"><img src={p.image} alt={p.title} /></div>
                                                 <div className="bpp-more-body">

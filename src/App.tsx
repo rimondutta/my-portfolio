@@ -20,21 +20,25 @@ const Home = () => (
   </Suspense>
 );
 
+import { HelmetProvider } from "react-helmet-async";
+
 const App = () => {
   return (
-    <Router>
-      <Analytics />
-      <LoadingProvider>
-        <Suspense fallback={<div className="loading-screen">Loading...</div>}>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/blog" element={<BlogPage />} />
-            <Route path="/blog/:slug" element={<BlogPostPage />} />
-            <Route path="/gallery" element={<GalleryPage />} />
-          </Routes>
-        </Suspense>
-      </LoadingProvider>
-    </Router>
+    <HelmetProvider>
+      <Router>
+        <Analytics />
+        <LoadingProvider>
+          <Suspense fallback={<div className="loading-screen">Loading...</div>}>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/blog" element={<BlogPage />} />
+              <Route path="/blog/:slug" element={<BlogPostPage />} />
+              <Route path="/gallery" element={<GalleryPage />} />
+            </Routes>
+          </Suspense>
+        </LoadingProvider>
+      </Router>
+    </HelmetProvider>
   );
 };
 

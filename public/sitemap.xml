@@ -26,7 +26,7 @@
         <priority>0.6</priority>
     </url>
     <url>
-        <loc>https://rimondutta.vercel.app/blog/deploy-nodejs-app-on-vps</loc>
+        <loc>https://rimondutta.vercel.app/blog/deploy-nodejs-app-on-vps-nginx-pm2</loc>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
