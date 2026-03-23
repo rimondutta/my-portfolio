@@ -1,3 +1,6 @@
+
+
+
 export const blogPosts = [
   {
     id: 1,
@@ -66,55 +69,288 @@ Large Language Models are transforming how humans interact with computers. By co
   },
   {
     id: 2,
-    slug: "future-of-nextjs-14",
-    title: "The Future of Full-Stack Development with Next.js 14",
-    category: "Technology",
-    date: "Feb 28, 2024",
-    readTime: "9 min read",
+    slug: "llm-finetuning-chapter-style-guide",
+    title: "Chapter: Fine-Tuning Large Language Models (LLMs) with Unsloth",
+    category: "AI / Machine Learning",
+    date: "Mar 23, 2026",
+    readTime: "15 min read",
     tags: [
-      "Next.js",
-      "React",
-      "Full-Stack"
+      "LLM",
+      "Fine-Tuning",
+      "LoRA",
+      "Unsloth",
+      "Deep Learning"
     ],
-    excerpt: "Deep dive into Server Actions, App Router optimisation, and why Next.js is dominating the 2024 landscape for production-grade applications.",
-    image: "https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?q=80&w=800&fit=crop",
-    featured: false,
+    excerpt: "A chapter-style guide to fine-tuning LLMs with Unsloth and LoRA, including theory, pipeline, math example, and full code explanation.",
+    image: "https://images.unsplash.com/photo-1677442135703-1787eea5ce01?q=80&w=1632&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    featured: true,
     content: `
-Next.js 14 represents a paradigm shift in how we think about full-stack React applications. With the stable release of Server Actions, developers finally have a clean, type-safe way to handle server-side mutations without writing API routes.
 
-<h2>Server Actions: The Game Changer</h2>
+<h2>1. Introduction</h2>
 
-Server Actions allow you to define async functions that run exclusively on the server, called directly from your components:
+Large Language Models (LLMs) are trained on massive datasets and can perform general tasks. However, real-world applications require more control, consistency, and domain-specific behavior.
 
-\`\`\`tsx
-async function createPost(formData: FormData) {
-  'use server';
-  const title = formData.get('title') as string;
-  await db.posts.create({ data: { title } });
-  revalidatePath('/blog');
-}
+Fine-tuning is the process of adapting a pre-trained model using a smaller, targeted dataset.
+
+Instead of learning everything from scratch, the model is adjusted to perform a specific task.
+
+According to Unsloth documentation, fine-tuning helps inject new knowledge and improve performance for domain-specific tasks. :contentReference[oaicite:0]{index=0}
+
+---
+
+<h2>2. Fine-Tuning Pipeline</h2>
+
+<img src="../src/assets/diagram/diagram_1.png" style="width:100%; border-radius:12px; margin:20px 0;" />
+
+A typical pipeline consists of:
+
+1. Load base model  
+2. Apply parameter-efficient method (LoRA)  
+3. Prepare dataset  
+4. Train model  
+5. Evaluate output  
+6. Export model  
+
+Each step must be correct. Most errors come from bad dataset formatting.
+
+---
+
+<h2>3. Parameter-Efficient Fine-Tuning (LoRA)</h2>
+
+LoRA is a method where:
+- The base model is frozen  
+- Small trainable matrices are added  
+- Only those matrices are updated  
+
+This drastically reduces memory usage and compute cost.
+
+Instead of updating billions of parameters, you train only a small subset.
+
+---
+
+<h2>4. Mathematical Insight (What the Model Learns)</h2>
+
+Consider the equation:
+
+Solve:
+2^(x+3) + 2^x = 72
+
+Step-by-step:
+
+2^(x+3) = 8 × 2^x  
+
+So:
+
+8·2^x + 2^x = 72  
+9·2^x = 72  
+2^x = 8  
+x = 3  
+
+Final Answer: x = 3  
+
+Important:
+
+The model is NOT solving math like a symbolic engine.
+
+It is learning:
+- Step patterns  
+- Transformation structure  
+- Answer formatting  
+
+This is why dataset quality is critical.
+
+---
+
+<h2>5. Model Initialization</h2>
+
+\`\`\`python
+from unsloth import FastLanguageModel
+
+model, tokenizer = FastLanguageModel.from_pretrained(
+    model_name = "unsloth/Llama-3.2-3B-Instruct",
+    max_seq_length = 2048,
+    load_in_4bit = True,
+)
 \`\`\`
 
-This eliminates entire layers of boilerplate — no more API routes, no more fetch calls, no more manual state management for simple mutations.
+Explanation:
 
-<h2>App Router Performance</h2>
+- max_seq_length → controls context size  
+- load_in_4bit → reduces memory usage up to 4× :contentReference[oaicite:1]{index=1}  
 
-The App Router introduced React Server Components (RSC), which render on the server and send only HTML to the client. The result? Dramatically smaller JavaScript bundles and faster Time to Interactive (TTI).
+Without 4-bit, most GPUs will run out of memory.
 
-**Key benefits:**
-- Zero JavaScript for static server components
-- Streaming with Suspense boundaries
-- Nested layouts without full-page remounts
+---
 
-<h2>Partial Prerendering (PPR)</h2>
+<h2>6. Applying LoRA</h2>
 
-Next.js 14 introduced experimental Partial Prerendering — a new rendering model that combines static and dynamic content in a single response. The static shell is served instantly, while dynamic holes stream in.
+\`\`\`python
+model = FastLanguageModel.get_peft_model(
+    model,
+    r = 16,
+    target_modules = [
+        "q_proj","k_proj","v_proj","o_proj",
+        "gate_proj","up_proj","down_proj"
+    ],
+    lora_alpha = 16,
+)
+\`\`\`
 
-<h2>Why Teams Are Migrating</h2>
+Explanation:
 
-The developer experience improvements in Next.js 14 are tangible. Compile times are faster, the mental model is simpler, and the integration with Vercel's infrastructure makes deployments trivial.
+- r → controls model learning capacity  
+- target_modules → attention + feedforward layers  
+- lora_alpha → scaling factor  
 
-The future of full-stack JavaScript is clearly server-first, and Next.js is leading the charge.
+Higher rank increases capacity but also memory usage.
+
+---
+
+<h2>7. Dataset Design</h2>
+
+Dataset is the most important part.
+
+The model does not understand intent — it learns patterns.
+
+Example format:
+
+\`\`\`python
+def formatting_prompts_func(examples):
+    texts = []
+
+    for problem, gen in zip(examples["problem"], examples["generations"]):
+        response = gen[0] if isinstance(gen, list) else gen
+
+        text = f"<problem>{problem}</problem>\\n{response}"
+        texts.append(text)
+
+    return {"text": texts}
+\`\`\`
+
+Key rule:
+
+Same format = consistent output  
+Different format = unstable output  
+
+---
+
+<h2>8. Training Configuration</h2>
+
+\`\`\`python
+trainer = SFTTrainer(
+    model = model,
+    tokenizer = tokenizer,
+    train_dataset = dataset,
+    dataset_text_field = "text",
+    max_seq_length = 1024,
+    args = TrainingArguments(
+        per_device_train_batch_size = 1,
+        gradient_accumulation_steps = 8,
+        max_steps = 60,
+        learning_rate = 2e-4,
+    ),
+)
+
+trainer.train()
+\`\`\`
+
+Important parameters:
+
+- batch size → limited by GPU  
+- gradient accumulation → simulates larger batch  
+- learning rate → controls stability  
+
+Different combinations can produce same effective batch size but different hardware cost. :contentReference[oaicite:2]{index=2}  
+
+---
+
+<h2>9. Inference</h2>
+
+\`\`\`python
+outputs = model.generate(
+    input_ids = inputs,
+    max_new_tokens = 1024,
+    do_sample = False,
+)
+\`\`\`
+
+This is used to test:
+- correctness  
+- reasoning style  
+- output format  
+
+---
+
+<h2>10. Exporting Model</h2>
+
+\`\`\`python
+files.download(gguf_path)
+\`\`\`
+
+Exporting allows:
+- local inference  
+- production deployment  
+- offline usage  
+
+---
+
+<h2>11. Common Issues</h2>
+
+Overfitting:
+- model memorizes data  
+- fix: reduce steps or increase data  
+
+Underfitting:
+- model too generic  
+- fix: increase training or LoRA rank  
+
+Bad Output:
+- caused by poor dataset  
+
+---
+
+<h2>12. Key Insight</h2>
+
+Fine-tuning is not about complex models.
+
+It is about:
+- clean data  
+- structured format  
+- correct training setup  
+
+If those are correct, even small models perform well.
+
+---
+
+<h2>13. Conclusion</h2>
+
+Fine-tuning transforms a general model into a specialized system.
+
+With tools like Unsloth and LoRA, this process is now accessible even on low-resource hardware.
+
+The most important component is not the model — it is the dataset.
+
+<div class="bpp-resources">
+    <h3 class="bpp-resources-title">All Resources</h3>
+    <div class="bpp-resources-grid">
+        <a href="https://huggingface.co/unsloth/Llama-3.2-3B-Instruct" target="_blank" rel="noopener noreferrer" class="bpp-resource-btn">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/7/7b/Meta_Platforms_Inc._logo.svg" class="bpp-resource-icon" alt="Model" />
+            <span class="bpp-resource-text">Model Link</span>
+        </a>
+        <a href="https://unsloth.ai/" target="_blank" rel="noopener noreferrer" class="bpp-resource-btn">
+            <img src="https://unsloth.ai/cgi/image/unsloth_sticker_no_shadow_ldN4V4iydw00qSIIWDCUv.png?width=96&quality=80&format=auto" class="bpp-resource-icon" alt="Unsloth" />
+            <span class="bpp-resource-text">Unsloth</span>
+        </a>
+        <a href="https://huggingface.co/datasets/open-r1/OpenR1-Math-220k" target="_blank" rel="noopener noreferrer" class="bpp-resource-btn">
+            <img src="https://huggingface.co/datasets/huggingface/brand-assets/resolve/main/hf-logo.png" class="bpp-resource-icon" alt="Datasets" />
+            <span class="bpp-resource-text">Datasets</span>
+        </a>
+        <a href="https://github.com/rimondutta" target="_blank" rel="noopener noreferrer" class="bpp-resource-btn">
+            <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" class="bpp-resource-icon" alt="Script" />
+            <span class="bpp-resource-text">Script</span>
+        </a>
+    </div>
+</div>
 `
   },
   {

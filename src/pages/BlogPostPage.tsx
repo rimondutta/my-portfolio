@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, Link, Navigate } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm"; // নিশ্চিত করুন এটি ইন্সটল করা আছে
+import remarkGfm from "remark-gfm";
 import rehypeRaw from "rehype-raw";
 import { useLoading } from "../context/LoadingProvider";
 import { smoother } from "../components/Navbar";
@@ -10,6 +10,8 @@ import SocialIcons from "../components/SocialIcons";
 import Cursor from "../components/Cursor";
 import SEO from "../components/SEO";
 import { MdCalendarToday, MdAccessTime, MdArrowBack, MdArrowForward, MdContentCopy, MdCheck } from "react-icons/md";
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { blogPosts } from "../data/blogPosts";
 import "../styles/BlogPostPage.css";
 
@@ -52,7 +54,7 @@ const BlogPostPage = () => {
 
     return (
         <div className="container-main">
-            <SEO 
+            <SEO
                 title={`${post.title} | Rimon Dutta`}
                 description={post.metaDescription || post.excerpt}
                 image={post.image}
@@ -116,7 +118,27 @@ const BlogPostPage = () => {
                                                         <span className="bpp-code-lang">{match ? match[1] : "code"}</span>
                                                         <CopyButton text={codeString} />
                                                     </div>
-                                                    <pre className="bpp-code"><code>{codeString}</code></pre>
+                                                    <SyntaxHighlighter
+                                                        style={vscDarkPlus}
+                                                        language={match ? match[1] : 'text'}
+                                                        PreTag="div"
+                                                        className="bpp-syntax-highlighter"
+                                                        customStyle={{
+                                                            margin: 0,
+                                                            padding: 0, // CSS handles it
+                                                            background: 'transparent',
+                                                        }}
+                                                        codeTagProps={{
+                                                            style: {
+                                                                fontSize: '14px',
+                                                                lineHeight: '1.7',
+                                                                fontFamily: '"SFMono-Regular", Consolas, monospace',
+                                                                display: 'block',
+                                                            }
+                                                        }}
+                                                    >
+                                                        {codeString}
+                                                    </SyntaxHighlighter>
                                                 </div>
                                             ) : (
                                                 <code className="bpp-inline-code" {...props}>{children}</code>

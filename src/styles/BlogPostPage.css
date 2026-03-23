@@ -255,14 +255,14 @@
     background: rgba(255, 255, 255, 0.05);
 }
 
-.bpp-code {
-    margin: 0 !important;
+/* bpp-code was replaced by SyntaxHighlighter customStyle */
+.bpp-syntax-highlighter {
     padding: 24px !important;
-    overflow-x: auto;
-    font-family: "SFMono-Regular", Consolas, monospace;
-    font-size: 14px;
-    line-height: 1.7;
-    color: rgba(255, 255, 255, 0.8);
+    background: transparent !important;
+}
+
+.bpp-syntax-highlighter code {
+    font-family: "SFMono-Regular", Consolas, monospace !important;
     background: transparent !important;
 }
 
@@ -424,3 +424,66 @@
         gap: 8px;
     }
 }
+
+/* ── Resources Section ──────────────────────────────── */
+.bpp-resources {
+    margin-top: 64px;
+    padding-top: 48px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.bpp-resources-title {
+    font-size: 24px;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 32px;
+}
+
+.bpp-resources-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+}
+
+.bpp-resource-btn {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 24px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1.5px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    color: #fff;
+    text-decoration: none;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    cursor: pointer;
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.05);
+}
+
+.bpp-resource-btn:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: var(--accentColor, #14b8a6);
+    transform: translateY(-5px);
+    box-shadow: 0 0 20px rgba(20, 184, 166, 0.4), 
+                0 0 40px rgba(20, 184, 166, 0.1),
+                inset 0 0 10px rgba(20, 184, 166, 0.2);
+}
+
+.bpp-resource-icon {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.bpp-resource-text {
+    font-size: 15px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+@media (max-width: 640px) {
+    .bpp-resources-grid {
+        grid-template-columns: 1fr;
+    }
+}

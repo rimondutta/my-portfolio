@@ -12,26 +12,6 @@ import { blogPosts } from "../data/blogPosts";
 
 // ── Sub-components ─────────────────────────────────────────────────────────
 
-const FeaturedCard = ({ post }: { post: any }) => (
-    <Link to={`/blog/${post.slug}`} className="bp-featured" data-cursor="disable">
-        <div className="bp-featured-image">
-            <img src={post.image} alt={post.title} />
-            <div className="bp-featured-overlay" />
-        </div>
-        <div className="bp-featured-content">
-            <span className="bp-category">{post.category}</span>
-            <h2 className="bp-featured-title">{post.title}</h2>
-            <p className="bp-featured-excerpt">{post.excerpt}</p>
-            <div className="bp-featured-meta">
-                <span><MdCalendarToday size={13} /> {post.date}</span>
-                <span><MdAccessTime size={13} /> {post.readTime}</span>
-            </div>
-            <div className="bp-read-btn">
-                Read Article <MdArrowForward />
-            </div>
-        </div>
-    </Link>
-);
 
 const PostCard = ({ post }: { post: any }) => (
     <Link to={`/blog/${post.slug}`} className="bp-card" data-cursor="disable">
@@ -74,8 +54,6 @@ const BlogPage = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    const featured = blogPosts.filter((p: any) => p.featured);
-    const rest = blogPosts.filter((p: any) => !p.featured);
 
     return (
         <div className="container-main blog-page-root">
@@ -125,22 +103,11 @@ const BlogPage = () => {
                         </div>
                     </div>
 
-                    {/* ── Featured Post ── */}
-                    <section className="bp-section">
-                        <div className="bp-section-label">Featured</div>
-                        {featured.map((p: any) => (
-                            <FeaturedCard key={p.id} post={p} />
-                        ))}
-                    </section>
-
-                    {/* ── Divider ── */}
-                    <div className="bp-divider" />
-
                     {/* ── All Posts ── */}
                     <section className="bp-section">
                         <div className="bp-section-label">All Articles</div>
                         <div className="bp-grid">
-                            {rest.map((p: any) => (
+                            {blogPosts.map((p: any) => (
                                 <PostCard key={p.id} post={p} />
                             ))}
                         </div>
